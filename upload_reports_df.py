@@ -61,5 +61,7 @@ def printReport(df, spreadsheet_id, sheetsName):
     result = gc.service.spreadsheets().values().batchUpdate(spreadsheetId=spreadsheet_id, body=body).execute()
 
 def printAnyReport(df, spreadsheet_id, sheetName):
+    for x in df.columns:
+        df[str(x)] = df[str(x)].astype(str)
     printReport(df, spreadsheet_id, sheetName)
 
