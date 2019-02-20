@@ -54,5 +54,10 @@ def printAnyReport(dict, spreadsheet_id, sheetsName='Sheet1!'):
     for key, value in dict.items():
         if not isinstance(value, pd.DataFrame):
             value = pd.DataFrame([value])
-        printReport(value, 'This is the ' + key + ' report, generated today (' + str(dt.now()) + ')', spreadsheet_id, sheetsName)
+            
+        #ONLY CHANGES DONE TO ACCEPT ANY DATA TYPE FOR ALL THE COLUMNS IN DATAFRAME
+        else:
+            for x in value.columns:
+                value[str(x)] = value[str(x)].astype(str)
 
+        printReport(value, 'This is the ' + key + ' report, generated today (' + str(dt.now()) + ')', spreadsheet_id, sheetsName)
